@@ -2,6 +2,8 @@
 If you have access to this, you know what this is for.  
 This is our accessibility map **prototype** - we are not making a full product.  
 
+This project is licensed under the **GNU Affero GPL V3.**
+
 ## Contributing
 To contribute, please:
 1. Use `git` to copy the **`devel` branch** - this is where any changes are made.
