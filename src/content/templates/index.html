@@ -1,11 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Accessibl</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    .text-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+    }
+
+    .gradient-text, .white-text {
+      font-size: 5em;
+      font-weight: 700;
+      white-space: nowrap;
+      padding: 20px;
+      position: absolute;
+      text-align: center;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right,
+        #000000 0%,
+        #000000 35%,
+        #6C63FF 45%,
+        #7ED6DF 60%,
+        #A29BFE 75%,
+        #FFFFFF 100%
+      );
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      opacity: 0;
+
+      animation: gradientSweep 6s ease-out forwards;
+      animation-delay: 1.2s;
+    }
+
+    .white-text {
+      color: white;
+      opacity: 0;
+      animation: fadeInWhite 1s ease-in forwards;
+      animation-delay: 6.4s; /* Quicker entry */
+    }
+
+    @keyframes gradientSweep {
+      0% {
+        opacity: 0;
+        background-position: 0% 50%;
+      }
+      10% {
+        opacity: 1;
+        background-position: 40% 50%;
+      }
+      100% {
+        opacity: 1;
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes fadeInWhite {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>TEST</h1>
+
+  <div class="text-container">
+    <div class="gradient-text">This is a test</div>
+    <div class="white-text">This is a test</div>
+  </div>
+
 </body>
 </html>
