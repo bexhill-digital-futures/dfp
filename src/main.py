@@ -14,7 +14,7 @@ app = Quart(__name__)
 
 @app.after_request
 async def request_logger(res:Response):
-    await util.log(
+    await util.alog(
         "ok" if res.status_code in range(200, 299) else "err",
         f"\033[90m\033[1m{request.headers.get('CF-Connecting-IP', request.remote_addr)}\033[0m  "
             + f"\033[1m{request.method} {request.path}\033[0m  "
