@@ -4,11 +4,11 @@ import util
 import asyncio
 from hypercorn.asyncio import serve
 from hypercorn.config import Config
-from quart import Quart, request, Response
+from quart import Quart, request, Response, render_template
 
 # init app
 
-app = Quart(__name__)
+app = Quart(__name__, template_folder=f"{util.WORKING_DIR}/templates")
 
 # logging
 
@@ -21,6 +21,12 @@ async def request_logger(res:Response):
             + f"\033[1m{'\033[92m' if res.status_code in range(200, 299) else '\033[91m'}{res.status_code}\033[0m"
     )
     return res
+
+# client pages
+
+@app.route("/") # home
+async def page_home():
+    return await render_template("index.html")
 
 # launch
 
