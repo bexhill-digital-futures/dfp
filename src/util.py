@@ -1,4 +1,4 @@
-#!/usr/bin/python3.13
+#!/usr/local/bin/python3.13
 
 import os
 import sys
@@ -9,8 +9,9 @@ import asyncio
 
 # constants
 
-DATA_PATH = os.environ.get("DFP_DATA", "data")
-WORKING_DIR = os.environ.get("DFP_WORKING", os.path.dirname(sys.argv[0]))
+DATA_PATH = os.path.abspath(os.environ.get("DFP_DATA", "data"))
+WORKING_DIR = os.path.abspath(os.environ.get("DFP_WORKING", os.path.dirname(sys.argv[0])))
+STATIC_BASE = f"{WORKING_DIR}/content/static/"
 LOG_TEMPLATES = {
     "dbg":   "\033[90m@T\033[0m  \033[95m\033[1mDEBUG\033[0m\t @M",
     "ok":    "\033[90m@T\033[0m  \033[92m\033[1mOK   \033[0m\t @M",
