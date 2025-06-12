@@ -22,6 +22,10 @@ class SupportsDatabase:
     async def deserialize(self, f:typing.BinaryIO) -> typing.Self:
         pass
 
+    @classmethod
+    async def default(self) -> typing.Self|None:
+        pass
+
 # additional
 
 T_SupportsDatabase = typing.TypeVar("T_SupportsDatabase", bound=SupportsDatabase)
@@ -29,6 +33,12 @@ T_SupportsDatabase = typing.TypeVar("T_SupportsDatabase", bound=SupportsDatabase
 # utils for get/set
 
 async def get(key:str, cast_to:type[T_SupportsDatabase]) -> T_SupportsDatabase:
+    if not (key in DATABASE):
+        res = await cast_to.default()
+        if res is None:
+            raise KeyError(key)
+        return res
+
     temp = io.BytesIO(DATABASE[key])
     return await cast_to.deserialize(temp)
 

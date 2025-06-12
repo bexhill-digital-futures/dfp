@@ -1,7 +1,9 @@
 #!/usr/local/bin/python3.13
 
 import os
+import data
 import util
+import random
 import asyncio
 from hypercorn.asyncio import serve
 from hypercorn.config import Config
@@ -23,6 +25,44 @@ async def request_logger(res:Response):
     )
     return res
 
+# generate a load of garbage data
+
+@app.before_serving
+async def generate_garbage():
+    # 360 * 360 * 100... that's 12.96 million test points
+    # sounds good to me
+
+    if util.cfg.get("make_garbage", False) is False:
+        return
+
+    await util.alog("info", "Generating garbage data")
+    await util.alog("warn", "Garbage generation may take a while because it is iterating over each axis 360 times and generating 100 locations for each chunk...")
+
+    for x in range(180 * 2):
+        lat = x / 2
+        for y in range(180 * 2):
+            lon = y / 2
+            locations = []
+            for i in range(100):
+                l = (random.random() * .5) + lat
+                o = (random.random() * .5) + lon
+
+                locations.append(data.MapLocation(
+                    f"cool location at {l}, {o}",
+                    "\n".join([
+                        f"just a cool location at {l}, {o}",
+                        "this was generated automatically for testing",
+                        "to disable, set `make_garbage` in `cfg.yaml` to `false`",
+                        "THIS IS WHY IT TOOK SO LONG TO START THE SERVER"
+                    ]),
+                    l,
+                    o,
+                    []
+                ))
+            await data.db.set(f"locations-{await data.get_chunk_id(l, o)}", data.MapChunk(locations))
+
+    await util.alog("ok", "Garbage generation complete!")
+
 # client pages
 
 @app.route("/") # home
@@ -43,6 +83,13 @@ async def src_path(target:str):
             return "Is A Directory", 400
         return await send_file(full)
     return "Not Found", 404
+
+# map chunk route
+
+@app.route("/map/<float:lat>/<float:lon>", methods=["GET"])
+async def map_getchunk(lat:float, lon:float):
+    locations = await data.get_locations_in_chunk(lat, lon)
+    return [await i.to_dict() for i in locations]
 
 # launch
 
