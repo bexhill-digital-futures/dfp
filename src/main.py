@@ -36,11 +36,11 @@ async def generate_garbage():
         return
 
     await util.alog("info", "Generating garbage data")
-    await util.alog("warn", "Garbage generation may take a while because it is iterating over each axis 360 times and generating 100 locations for each chunk...")
+    await util.alog("warn", "Garbage generation may take a while because it is iterating over each axis 720 times and generating 100 locations for each chunk...")
 
-    for x in range(180 * 2):
+    for x in range(360 * 2):
         lat = x / 2
-        for y in range(180 * 2):
+        for y in range(360 * 2):
             lon = y / 2
             locations = []
             for i in range(100):
@@ -48,6 +48,7 @@ async def generate_garbage():
                 o = (random.random() * .5) + lon
 
                 locations.append(data.MapLocation(
+                    await data.generate_uid(data.time.time_ns() + (l * o)),
                     f"cool location at {l}, {o}",
                     "\n".join([
                         f"just a cool location at {l}, {o}",
@@ -59,7 +60,9 @@ async def generate_garbage():
                     o,
                     []
                 ))
-            await data.db.set(f"locations-{await data.get_chunk_id(l, o)}", data.MapChunk(locations))
+            await data.db.set(f"locations-{await data.get_chunk_id(l, o)}", data.MapChunk(locations), False)
+        await util.alog("info", f"Committing chunk row {x}")
+        data.db.DATABASE.commit()
 
     await util.alog("ok", "Garbage generation complete!")
 
@@ -96,5 +99,8 @@ async def map_getchunk(lat:float, lon:float):
 if __name__ == "__main__":
     cfg = Config()
     cfg.bind = [f"127.0.0.1:{util.cfg.get('server', {}).get('port', 80)}"]
+
+    if util.cfg.get("make_garbage", False) is True:
+        cfg.startup_timeout = 86400
 
     asyncio.run(serve(app, cfg))
