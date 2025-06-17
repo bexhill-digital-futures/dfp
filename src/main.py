@@ -91,8 +91,32 @@ async def src_path(target:str):
 
 @app.route("/map/<float:lat>/<float:lon>", methods=["GET"])
 async def map_getchunk(lat:float, lon:float):
-    locations = await data.get_locations_in_chunk(lat, lon)
-    return [await i.to_dict() for i in locations]
+    locations = await data.get_locations_in_chunk(lon, lat)
+    return [await i.to_dict(False) for i in locations]
+
+# location controls
+
+@app.route("/loc", methods=["POST"])
+async def map_newloc():
+    ctn = await request.get_json(True)
+    loc = data.MapLocation(
+        await data.generate_uid(),
+        ctn["name"],
+        ctn["desc"],
+        ctn["lat"],
+        ctn["lon"],
+        []
+    )
+    await data.set_location(loc)
+    return loc.uid
+
+@app.route("/loc/<float:lat>/<float:lon>/<string:uid>", methods=["GET"])
+async def map_getloc(lat:float, lon:float, uid:str):
+    candidates = await data.get_locations_in_chunk(lon, lat)
+    for i in candidates:
+        if i.uid == uid:
+            return await i.to_dict()
+    return "Not Found", 404
 
 # launch
 

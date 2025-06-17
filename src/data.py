@@ -100,17 +100,19 @@ class MapLocation(db.SupportsDatabase):
             reviews.append(await MapReview.deserialize(f))
         return self(uid, name, desc, lat, lon, reviews)
     
-    async def to_dict(self) -> dict:
-        return {
+    async def to_dict(self, dump_reviews:bool=True) -> dict:
+        res = {
             "uid": self.uid,
             "name": self.name,
             "desc": self.desc,
             "position": {
                 "lat": self.position[0],
                 "lon": self.position[1]
-            },
-            "reviews": [await i.to_dict() for i in self.reviews]
+            }
         }
+        if dump_reviews is True:
+            res["reviews"] = [await i.to_dict() for i in self.reviews]
+        return res
 
     async def get_ratings(self) -> typing.Dict[str,int]: # 0 through 4 for no. stars - 1
         totals = {}
@@ -152,11 +154,11 @@ class MapChunk(db.SupportsDatabase):
 
 # map handler
 
-async def get_chunk_id(lat:float, lon:float) -> str:
-    return f"{int(lat * CHUNK_DENSITY)}-{int(lon * CHUNK_DENSITY)}"
+async def get_chunk_id(lon:float, lat:float) -> str:
+    return f"{int(lon * CHUNK_DENSITY)}-{int(lat * CHUNK_DENSITY)}"
 
-async def get_locations_in_chunk(lat:float, lon:float) -> list[MapLocation]:
-    chunk = await db.get(f"locations-{await get_chunk_id(lat, lon)}", MapChunk)
+async def get_locations_in_chunk(lon:float, lat:float) -> list[MapLocation]:
+    chunk = await db.get(f"locations-{await get_chunk_id(lon, lat)}", MapChunk)
     return chunk.locations
 
 async def set_location(loc:MapLocation):
