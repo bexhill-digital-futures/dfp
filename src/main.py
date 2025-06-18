@@ -38,31 +38,25 @@ async def generate_garbage():
     await util.alog("info", "Generating garbage data")
     await util.alog("warn", "Garbage generation may take a while because it is iterating over each axis 720 times and generating 100 locations for each chunk...")
 
-    for x in range(360 * 2):
-        lat = x / 2
-        for y in range(360 * 2):
-            lon = y / 2
-            locations = []
-            for i in range(100):
-                l = (random.random() * .5) + lat
-                o = (random.random() * .5) + lon
-
-                locations.append(data.MapLocation(
-                    await data.generate_uid(data.time.time_ns() + (l * o)),
-                    f"cool location at {l}, {o}",
-                    "\n".join([
-                        f"just a cool location at {l}, {o}",
-                        "this was generated automatically for testing",
-                        "to disable, set `make_garbage` in `cfg.yaml` to `false`",
-                        "THIS IS WHY IT TOOK SO LONG TO START THE SERVER"
-                    ]),
-                    l,
-                    o,
-                    []
-                ))
-            await data.db.set(f"locations-{await data.get_chunk_id(l, o)}", data.MapChunk(locations), False)
-        await util.alog("info", f"Committing chunk row {x}")
-        data.db.DATABASE.commit()
+    locations = []
+    for i in range(8000):
+        l = (random.random() * .4) + .380526
+        o = (random.random() * .4) + 50.82706
+        locations.append(data.MapLocation(
+            await data.generate_uid(),
+            f"cool location at {l}, {o}",
+            "\n".join([
+                f"just a cool location at {l}, {o}",
+                "this was generated automatically for testing",
+                "to disable, set `make_garbage` in `cfg.yaml` to `false`",
+                "THIS IS WHY IT TOOK SO LONG TO START THE SERVER"
+            ]),
+            l,
+            o,
+            []
+        ))
+    await data.db.set(f"locations-{await data.get_chunk_id(l, o)}", data.MapChunk(locations), False)
+    data.db.DATABASE.commit()
 
     await util.alog("ok", "Garbage generation complete!")
 
@@ -92,7 +86,7 @@ async def src_path(target:str):
 @app.route("/map/<float:lat>/<float:lon>", methods=["GET"])
 async def map_getchunk(lat:float, lon:float):
     locations = await data.get_locations_in_chunk(lon, lat)
-    return [await i.to_dict(False) for i in locations]
+    return [await locations[i].to_dict(False) for i in locations]
 
 # location controls
 

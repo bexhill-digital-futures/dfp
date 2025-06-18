@@ -10,7 +10,7 @@ from hashlib import md5
 
 POSITION_PRECISION = 2 ** 32 # fixed point lol
 POSITION_LENGTH = 12 # this is in bytes
-CHUNK_DENSITY = 2 # chunks per degree
+CHUNK_DENSITY = 1 / 360 # chunks per degree
 
 RATING_KEYS = [ # 0 = negative, 1 = neutral, 2 = positive
     "steps", # 0 = only steps, 2 = step-free
@@ -34,7 +34,7 @@ async def generate_uid(seed:int|None=None) -> str:
         seed = time.time_ns()
     return md5(seed.to_bytes(16, "little", signed=True)).hexdigest()
 
-# saved/db types
+# saved/db types - chicken joe
 
 class MapReview(db.SupportsDatabase):
     def __init__(self, sender_name:str, sender_pfp_key:str, ratings:typing.Dict[str,int]):
@@ -112,6 +112,7 @@ class MapLocation(db.SupportsDatabase):
         }
         if dump_reviews is True:
             res["reviews"] = [await i.to_dict() for i in self.reviews]
+            res["ratings"] = await self.get_ratings()
         return res
 
     async def get_ratings(self) -> typing.Dict[str,int]: # 0 through 4 for no. stars - 1

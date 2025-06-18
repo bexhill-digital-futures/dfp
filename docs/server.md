@@ -72,9 +72,13 @@ Returns a `MapLocation` as JSON:
             }
         },
         ...
-    ]
+    ],
+    "ratings": {
+        [string]: 0
+    }
 }
 ```
+Note, the `ratings` dictionary here contains integers from 0 through 4. These represent 1 through 5 stars.
 
 ### Misc
 
