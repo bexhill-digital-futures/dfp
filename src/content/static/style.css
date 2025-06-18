@@ -1,3 +1,24 @@
 body {
-    margin: auto;
+    background: var(--bg);
+    color: var(--fg);
+    overflow: hidden;
+}
+
+.navbar-button {
+    width: 2rem;
+    height: 2rem;
+    border-radius: .5rem;
+    background: var(--secondary);
+    color: var(--fg);
+    border: none;
+}
+
+#map-navbar {
+    position: absolute;
+    left: calc(100% - 1rem);
+    top: calc(100% - 1rem);
+    background: var(--panel-bg);
+    border-radius: .625rem;
+    padding: .375rem;
+    transform: translate(-100%, -100%);
 }
