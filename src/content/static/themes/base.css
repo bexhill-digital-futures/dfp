@@ -1,8 +1,20 @@
+/*
+    hello
+    this is a theme
+    this is a stylesheet loaded before /src/style.css
+    this should ONLY be used to set variables
+    thank =)
+*/
+
 :root {
-    --fg: #efdcef;
-    --bg: #140915;
-    --panel-bg: #331736;
-    --primary: #d3a7d7;
-    --secondary: #6d3331;
-    --accent: #000; /* need to set that */
+    --fg: #0e0e07;
+    --bg: #fdfdfa;
+    --primary: #abab5e;
+    --secondary: #b8cea2;
+    --accent: #99bd81;
+    
+    --panel-bg: #dae7ce;
+    --panel-shadow: #000000a1;
+    --panel-roundness: .625rem;
+    --panel-button-roundness: .5rem;
 }

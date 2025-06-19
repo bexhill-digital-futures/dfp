@@ -39,9 +39,9 @@ async def generate_garbage():
     await util.alog("warn", "Garbage generation may take a while because it is iterating over each axis 720 times and generating 100 locations for each chunk...")
 
     locations = []
-    for i in range(8000):
-        l = (random.random() * .4) + .380526
-        o = (random.random() * .4) + 50.82706
+    for i in range(100):
+        l = (random.random() * .01) + .292608
+        o = (random.random() * .01) + 50.770389
         locations.append(data.MapLocation(
             await data.generate_uid(),
             f"cool location at {l}, {o}",
@@ -51,8 +51,8 @@ async def generate_garbage():
                 "to disable, set `make_garbage` in `cfg.yaml` to `false`",
                 "THIS IS WHY IT TOOK SO LONG TO START THE SERVER"
             ]),
-            l,
             o,
+            l,
             []
         ))
     await data.db.set(f"locations-{await data.get_chunk_id(l, o)}", data.MapChunk(locations), False)

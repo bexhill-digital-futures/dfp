@@ -3,19 +3,35 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>title</title>
+        <title>FreePath</title>
 
         <link rel="stylesheet" href="/src/themes/base.css">
         <link rel="stylesheet" href="/src/style.css">
+
+        <script src="/src/script/mapapi.js"></script>
+
+        <!-- no node modules... no npm... no node -->
+        <link
+            href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"
+            rel="stylesheet"
+        />
+        <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
     </head>
     <body>
         <div id="map"></div>
 
         <div id="map-navbar">
-            <button class="navbar-button"></button>
-            <button class="navbar-button"></button>
-            <button class="navbar-button"></button>
-            <button class="navbar-button"></button>
+            <button class="navbar-button">
+                <span class="icon full zoom-in"></span>
+            </button>
+            <button class="navbar-button">
+                <span class="icon full zoom-out"></span>
+            </button>
+            <button class="navbar-button">
+                <span class="icon full list"></span>
+            </button>
         </div>
+
+        <script src="/src/script/map-handle.js"></script>
     </body>
 </html>
