@@ -38,25 +38,20 @@ async def generate_garbage():
     await util.alog("info", "Generating garbage data")
     await util.alog("warn", "Garbage generation may take a while because it is iterating over each axis 720 times and generating 100 locations for each chunk...")
 
-    locations = []
-    for i in range(100):
-        l = (random.random() * .01) + .292608
-        o = (random.random() * .01) + 50.770389
-        locations.append(data.MapLocation(
-            await data.generate_uid(),
-            f"cool location at {l}, {o}",
-            "\n".join([
-                f"just a cool location at {l}, {o}",
-                "this was generated automatically for testing",
-                "to disable, set `make_garbage` in `cfg.yaml` to `false`",
-                "THIS IS WHY IT TOOK SO LONG TO START THE SERVER"
-            ]),
-            o,
-            l,
-            []
-        ))
-    await data.db.set(f"locations-{await data.get_chunk_id(l, o)}", data.MapChunk(locations), False)
-    data.db.DATABASE.commit()
+    for iter in range(100):
+        for i in range(1000):
+            l = (random.random() * .1) + .242608
+            o = (random.random() * .1) + 50.820389
+            await data.set_location(data.MapLocation(
+                await data.generate_uid(),
+                f"a very nice location at {o}, {l}",
+                f"read the title, disable garbage generation",
+                l,
+                o,
+                []
+            ), False)
+        await util.alog("info", f"Committing generation {iter}")
+        data.db.DATABASE.commit()
 
     await util.alog("ok", "Garbage generation complete!")
 

@@ -10,7 +10,7 @@ from hashlib import md5
 
 POSITION_PRECISION = 2 ** 32 # fixed point lol
 POSITION_LENGTH = 12 # this is in bytes
-CHUNK_DENSITY = 1 / 360 # chunks per degree
+CHUNK_DENSITY = 8 # chunks per degree
 
 RATING_KEYS = [ # 0 = negative, 1 = neutral, 2 = positive
     "steps", # 0 = only steps, 2 = step-free
@@ -139,7 +139,7 @@ class MapChunk(db.SupportsDatabase):
     async def serialize(self, f):
         f.write(len(self.locations).to_bytes(4, "little", signed=False))
         for i in self.locations:
-            await i.serialize(f)
+            await self.locations[i].serialize(f)
     
     @classmethod
     async def deserialize(self, f):
@@ -162,8 +162,8 @@ async def get_locations_in_chunk(lon:float, lat:float) -> list[MapLocation]:
     chunk = await db.get(f"locations-{await get_chunk_id(lon, lat)}", MapChunk)
     return chunk.locations
 
-async def set_location(loc:MapLocation):
+async def set_location(loc:MapLocation, commit:bool=True):
     key = f"locations-{await get_chunk_id(*loc.position)}"
     chunk = await db.get(key, MapChunk)
     chunk.locations[loc.uid] = loc
-    await db.set(key, chunk)
+    await db.set(key, chunk, commit)

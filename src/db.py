@@ -8,7 +8,11 @@ from sqlitedict import SqliteDict
 
 # sqlitedict is easier than directly handling the db
 
-DATABASE = SqliteDict(f"{util.DATA_PATH}/data.db", "dfp", encode=lambda x : x, decode=lambda x : x)
+DATABASE = SqliteDict(
+    util.cfg.get("database_path", f"{util.DATA_PATH}/data.db"),
+    "dfp",
+    encode=lambda x : x, decode=lambda x : x
+)
 
 # base class for serialization/deserialization
 
