@@ -1,4 +1,8 @@
-# DFP: Accessibility Map
+# FreePath: Accessibility Map
+
+> [!WARNING]
+> This document is outdated and may not reflect the current state of the project.
+
 If you have access to this, you know what this is for.  
 This is our accessibility map **prototype** - we are not making a full product.  
 
