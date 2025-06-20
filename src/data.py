@@ -128,7 +128,7 @@ class MapLocation(db.SupportsDatabase):
         
         results = {}
         for i in totals:
-            results[i] = int(totals[i][0] / totals[i][1])
+            results[i] = int(totals[i][0] / max(1, totals[i][1]))
 
         return results
 

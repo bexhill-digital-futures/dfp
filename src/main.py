@@ -61,8 +61,8 @@ async def page_home():
 async def page_location():
     res = Response(await render_template("location.html"), 200, mimetype="text/html")
     res.set_cookie("dfp-return-mode", request.args.get("sm", "map"))
-    res.set_cookie("dfp-return-lat", request.args.get("sl", 90.0, float))
-    res.set_cookie("dfp-return-lon", request.args.get("so", 90.0, float))
+    res.set_cookie("dfp-return-lat", str(request.args.get("sl", 90.0, float)))
+    res.set_cookie("dfp-return-lon", str(request.args.get("so", 90.0, float)))
     return res
 
 @app.route("/src/<path:target>", methods=["GET"])
@@ -79,6 +79,12 @@ async def src_path(target:str):
             return "Is A Directory", 400
         return await send_file(full)
     return "Not Found", 404
+
+# favicon ig
+
+@app.route("/favicon.ico", methods=["GET"])
+async def favicon():
+    return await send_file(f"{util.STATIC_BASE}icon/favicon.ico")
 
 # map chunk route
 
@@ -107,8 +113,8 @@ async def map_newloc():
 async def map_getloc(lat:float, lon:float, uid:str):
     candidates = await data.get_locations_in_chunk(lon, lat)
     for i in candidates:
-        if i.uid == uid:
-            return await i.to_dict()
+        if candidates[i].uid == uid:
+            return await candidates[i].to_dict()
     return "Not Found", 404
 
 # launch
