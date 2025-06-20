@@ -18,6 +18,23 @@ button.navbar-button {
     margin: .125rem;
 }
 
+/* generic classes */
+
+.panel {
+    background: var(--panel-bg);
+    border-radius: var(--panel-roundness);
+    box-shadow: 0 .125rem 1rem var(--panel-shadow);
+    margin: .375rem;
+    padding: .375rem;
+    box-sizing: border-box;
+}
+.center-align {
+    margin: 0 auto;
+    width: min(100%, 50rem);
+    box-sizing: border-box;
+    padding: .375rem;
+}
+
 /* just the entire homepage style */
 
 #map-navbar {

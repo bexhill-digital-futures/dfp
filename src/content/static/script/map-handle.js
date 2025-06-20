@@ -53,6 +53,10 @@ let active_locs = {}; // key: uid, value: marker
 
 map.on("moveend", async () => {
     if (map.getZoom() < MIN_MARKER_ZOOM_LEVEL) {
+        for (const [i,v] of Object.entries(active_locs)) {
+            v.remove();
+        }
+        active_locs = {};
         return;
     }
 
@@ -64,8 +68,14 @@ map.on("moveend", async () => {
     let ne = bounds.getNorthEast();
 
     if (!locations) { // chunk doesn't exist, nothing to do
+        for (const [i,v] of Object.entries(active_locs)) {
+            v.remove();
+        }
+        active_locs = {};
         return;
     }
+
+    console.log(`bounds: ${sw.lng}, ${sw.lat} to ${ne.lng}, ${ne.lat}`);
 
     let handled_uids = {};
     for (let i=0; i<locations.length; i++) {

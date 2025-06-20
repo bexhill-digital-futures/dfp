@@ -29,29 +29,25 @@ async def request_logger(res:Response):
 
 @app.before_serving
 async def generate_garbage():
-    # 360 * 360 * 100... that's 12.96 million test points
-    # sounds good to me
-
     if util.cfg.get("make_garbage", False) is False:
         return
 
     await util.alog("info", "Generating garbage data")
-    await util.alog("warn", "Garbage generation may take a while because it is iterating over each axis 720 times and generating 100 locations for each chunk...")
+    await util.alog("warn", "Garbage generation may take a while")
 
-    for iter in range(100):
-        for i in range(1000):
-            l = (random.random() * .1) + .242608
-            o = (random.random() * .1) + 50.820389
-            await data.set_location(data.MapLocation(
-                await data.generate_uid(),
-                f"a very nice location at {o}, {l}",
-                f"read the title, disable garbage generation",
-                l,
-                o,
-                []
-            ), False)
-        await util.alog("info", f"Committing generation {iter}")
-        data.db.DATABASE.commit()
+    for i in range(100):
+        o = (random.random() * .02) + .292608
+        l = (random.random() * .02) + 50.770389
+        await data.set_location(data.MapLocation(
+            await data.generate_uid(),
+            f"a very nice location at {o}, {l}",
+            f"read the title, disable garbage generation",
+            l,
+            o,
+            []
+        ), False)
+    await util.alog("info", f"Committing generation")
+    data.db.DATABASE.commit()
 
     await util.alog("ok", "Garbage generation complete!")
 
@@ -60,6 +56,14 @@ async def generate_garbage():
 @app.route("/") # home
 async def page_home():
     return await render_template("index.html")
+
+@app.route("/loc", methods=["GET"])
+async def page_location():
+    res = Response(await render_template("location.html"), 200, mimetype="text/html")
+    res.set_cookie("dfp-return-mode", request.args.get("sm", "map"))
+    res.set_cookie("dfp-return-lat", request.args.get("sl", 90.0, float))
+    res.set_cookie("dfp-return-lon", request.args.get("so", 90.0, float))
+    return res
 
 @app.route("/src/<path:target>", methods=["GET"])
 async def src_path(target:str):
