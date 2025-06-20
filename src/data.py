@@ -163,7 +163,7 @@ async def get_locations_in_chunk(lon:float, lat:float) -> list[MapLocation]:
     return chunk.locations
 
 async def set_location(loc:MapLocation, commit:bool=True):
-    key = f"locations-{await get_chunk_id(*loc.position)}"
+    key = f"locations-{await get_chunk_id(loc.position[1], loc.position[0])}"
     chunk = await db.get(key, MapChunk)
     chunk.locations[loc.uid] = loc
     await db.set(key, chunk, commit)
