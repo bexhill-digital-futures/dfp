@@ -1,12 +1,9 @@
-# FreePath: Accessibility Map
-
-> [!WARNING]
-> This document is outdated and may not reflect the current state of the project.
+# 🗺️ FreePath: Accessibility Map
 
 If you have access to this, you know what this is for.  
 This is our accessibility map **prototype** - we are not making a full product.  
 
-This project is licensed under the **GNU Affero GPL V3.**
+This project is licensed under the **GNU Affero GPL V3.** See the license for details.
 
 ## Contributing
 To contribute, please:
@@ -14,7 +11,48 @@ To contribute, please:
 2. Make commits with sensible, short and concise messages.
 
 ## Running
-Currently, there is no app to run, so this section will be left incomplete.  
+### 1. Configure the Data Path
+By default, the data path is in `./data` but you can set it with the `DFP_DATA` environment variable. In the data path you only need one file: `cfg.yaml`.  
+The configuration file is simple with only a few fields:
+- The dictionary `server`, under which the `port` field is  
+- The optional boolean `make_garbage`, which if `true` will run a garbage data generator before serving  
+- An optional string `database_path` which allows you to control where the database file is stored, defaults to `{DATA_PATH}/data.db`  
+For example, to serve on port `11210`, store the database in `/mnt/external/data.db` and generate test data on launch:
+```yaml
+server:
+  port: 11210
+database_path: "/mnt/external/data.db"
+make_garbage: true
+```
+
+### 2. Install Dependencies
+#### 2.1. Install Python
+Since the back-end is written in Python, you need Python! This project is built around **Python 3.13** - but any post-3.12 version should work.  
+
+**Install Examples**  
+**Windows:** Download the installer and run it.  
+**`apt`-based Linux (e.g. Ubuntu, Debian):** `sudo apt install python`  
+**`dnf`-based Linux (e.g. Fedora, RHEL):** `sudo dnf install python`
+**Linux Hard Mode:** *(in extracted source)* `./configure --enable-optimizations --prefix=/usr/local; make; sudo make altinstall`  
+
+#### 2.2. Install Python Packages
+Using `pip`, install `quart`, `PyYaml` and `SqliteDict`. These are the only third-party libraries we use (along with their dependencies) - if your python install includes all the standard libraries this is sufficient.
+
+### 3. Start the App
+To start from the root of the repository:
+```bash
+python ./src/main.py
+```
+Alternatively, to specify the data path, set the `DFP_DATA` first:
+```bash
+export DFP_DATA=/mnt/external/data
+python ./src/main.py
+```
+
+**These steps should work on any platform, however this project has only been tested on these platforms:**
+- Arch Linux, Python 3.13.3 and Python 3.13.5 *(from source)*
+- Debian Linux, Python 3.13.1 and Python 3.13.5 *(from source)*
+- Fedora Linux, Python 3.13.3 *(from `dnf install python`)*
 
 ## The Code
 The **back-end** is written in Python. You will find the code in `.py` files. To run a single file, use `python file.py`.  
