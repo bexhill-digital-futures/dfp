@@ -1,4 +1,18 @@
+/*
+    hi
+    this is the stylesheet
+    NOT the theme
+    to change colors/roundness edit the files in /src/content/static/themes
+    thank =)
+
+    (still waiting for hakita to release fraud)
+*/
+
+/* world's greatest import */
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* elements */
 
 body {
     background: var(--bg);
@@ -10,15 +24,79 @@ body {
 button {
     background: var(--secondary);
     border: none;
+    border-radius: var(--button-roundness);
+    box-shadow: 0 .125rem 1rem var(--button-shadow),
+        0 .0625rem .25rem var(--button-shadow),
+        inset 0 -.125rem .125rem var(--button-inner-shadow),
+        inset 0 .125rem .125rem var(--button-highlight),
+        inset 0 .0625rem .0625rem var(--button-top-highlight);
+    cursor: pointer;
+    transition: transform ease-in-out calc(.125s * var(--motion-factor));
 }
 
 button.navbar-button {
     width: 2rem;
     height: 2rem;
-    border-radius: var(--panel-button-roundness);
+    border-radius: var(--button-roundness);
     color: var(--fg);
     border: none;
     margin: .125rem;
+}
+
+button:hover {
+    transform: scale(112%);
+}
+
+h1 {
+    margin: .125rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+h2 {
+    margin: .125rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+h3 {
+    margin: .0625rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+h4 {
+    margin: .0625rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+p {
+    margin: .125rem .0625rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+hr {
+    border: none;
+    border-bottom: .0625rem solid var(--accent);
+}
+
+textarea {
+    background: var(--panel-bg);
+    border-radius: var(--button-roundness);
+    margin: .375rem;
+    padding: .5rem 1rem;
+    box-sizing: border-box;
+    box-shadow: 0 .125rem 1rem var(--panel-shadow),
+        0 .0625rem .25rem var(--panel-shadow),
+        inset 0 -.25rem .5rem var(--panel-inner-shadow),
+        inset 0 .25rem .375rem var(--panel-highlight),
+        inset 0 .0625rem .0625rem var(--panel-top-highlight);
+    font-family: "Noto Sans", sans-serif;
+    font-size: 1rem; /* wow, accessibility */
+    resize: vertical;
+    width: 100%;
+    height: 4rem;
+    outline: none;
+    border: none;
 }
 
 /* generic classes */
@@ -26,10 +104,14 @@ button.navbar-button {
 .panel {
     background: var(--panel-bg);
     border-radius: var(--panel-roundness);
-    box-shadow: 0 .125rem 1rem var(--panel-shadow);
     margin: .375rem;
-    padding: .375rem;
+    padding: .5rem 1rem;
     box-sizing: border-box;
+    box-shadow: 0 .125rem 1rem var(--panel-shadow),
+        0 .0625rem .25rem var(--panel-shadow),
+        inset 0 -.25rem .5rem var(--panel-inner-shadow),
+        inset 0 .25rem .375rem var(--panel-highlight),
+        inset 0 .0625rem .0625rem var(--panel-top-highlight);
 }
 .center-align {
     margin: 0 auto;
@@ -44,11 +126,8 @@ button.navbar-button {
     position: absolute;
     left: calc(100% - 1rem);
     top: calc(100% - 2.5rem); /* maplibre watermark */
-    background: var(--panel-bg);
-    border-radius: var(--panel-roundness);
     padding: .125rem;
     transform: translate(-100%, -100%);
-    box-shadow: 0 .125rem 1rem var(--panel-shadow);
 }
 
 #map {
@@ -60,10 +139,80 @@ button.navbar-button {
 }
 
 .marker {
-    background: #f00;
+    pointer-events: none;
+    width: 4rem;
+    height: 4rem;
+}
+.marker button {
+    pointer-events: all;
+    background: none;
+    border: none;
+    box-shadow: none;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 50%;
+    height: 50%;
+}
+
+/* location page */
+
+#loc-ratings {
+    width: 16rem;
+}
+#loc-return {
     width: 2rem;
     height: 2rem;
-    cursor: pointer;
+}
+#loc-title-outer {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: left;
+    align-items: start;
+    gap: .5rem;
+}
+
+.rating {
+    display: grid;
+    justify-content: space-between;
+    align-content: center;
+    gap: 1rem;
+    grid-auto-flow: column;
+}
+.note {
+    padding: 0 0 .125rem 0;
+    font-size: .875rem;
+}
+.note.positive {
+    color: var(--positive);
+    font-weight: 400;
+}
+.note.neutral {
+    color: var(--neutral);
+    font-weight: 400;
+}
+.note.negative {
+    color: var(--negative);
+    font-weight: 600;
+}
+
+.review {
+    display: grid;
+    justify-content: left;
+    align-content: start;
+    gap: 1rem;
+    grid-auto-flow: column;
+    margin: .5rem 0 1rem 0;
+}
+.review img { /* pfp */
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 .125rem 1rem var(--panel-shadow), 0 .0625rem .25rem var(--panel-shadow);
+}
+.sender {
+    font-size: 1.0625rem;
+    font-weight: 600;
 }
 
 /* icons */
@@ -74,6 +223,7 @@ img.icon.full {
 }
 
 span.icon {
+    position: relative;
     display: inline-block;
     background: var(--fg);
     margin: 0;
@@ -95,4 +245,44 @@ span.icon.zoom-in {
 span.icon.zoom-out {
     -webkit-mask: url(/src/icon/zoom-out.svg) no-repeat center / contain;
             mask: url(/src/icon/zoom-out.svg) no-repeat center / contain;
+}
+span.icon.back {
+    -webkit-mask: url(/src/icon/back.svg) no-repeat center / contain;
+            mask: url(/src/icon/back.svg) no-repeat center / contain;
+}
+
+span.icon.star-empty {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--star-empty);
+    -webkit-mask: url(/src/icon/star-empty.svg) no-repeat center / contain;
+            mask: url(/src/icon/star-empty.svg) no-repeat center / contain;
+}
+span.icon.star-full {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--star-empty);
+    -webkit-mask: url(/src/icon/star-full.svg) no-repeat center / contain;
+            mask: url(/src/icon/star-full.svg) no-repeat center / contain;
+}
+span.icon.star-half {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--star-empty);
+    -webkit-mask: url(/src/icon/star-half.svg) no-repeat center / contain;
+            mask: url(/src/icon/star-half.svg) no-repeat center / contain;
+}
+
+/* AAAND media queries */
+
+@media (max-width: 20rem) {
+    /* ultra smol */
+
+    #loc-ratings {
+        width: min(16rem, 100%);
+    }
+    .rating {
+        grid-auto-flow: row;
+        gap: 0;
+    }
 }

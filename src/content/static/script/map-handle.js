@@ -1,17 +1,34 @@
 // constants
 
 const MIN_MARKER_ZOOM_LEVEL = 12;
+const BAD_RATING_THRESHOLD = 1.25;
+const GOOD_RATING_THRESHOLD = 2.75;
 
 // a few utilities
 
-async function make_marker() {
+async function make_marker(redir_to, rating) {
     let marker = document.createElement("div");
     marker.className = "marker";
 
     let inner = document.createElement("img");
     inner.className = "icon full";
-    inner.src = "/src/icon/placeholder.png";
+
+    if (rating < BAD_RATING_THRESHOLD) {
+        inner.src = "/src/icon/pin-negative.svg";
+    } else if (rating > GOOD_RATING_THRESHOLD) {
+        inner.src = "/src/icon/pin-positive.svg";
+    } else {
+        inner.src = "/src/icon/pin-neutral.svg";
+    }
+
     marker.append(inner);
+
+    let button = document.createElement("button");
+    marker.append(button)
+
+    button.addEventListener("click", () => {
+        window.location.href = redir_to.replaceAll(":Z;", map.getZoom().toString());
+    })
 
     return marker;
 }
@@ -75,8 +92,6 @@ map.on("moveend", async () => {
         return;
     }
 
-    console.log(`bounds: ${sw.lng}, ${sw.lat} to ${ne.lng}, ${ne.lat}`);
-
     let handled_uids = {};
     for (let i=0; i<locations.length; i++) {
         const v = locations[i];
@@ -95,12 +110,18 @@ map.on("moveend", async () => {
         }
 
         handled_uids[v.uid] = true;
-        let marker = new maplibregl.Marker({element: await make_marker()})
+        let marker = new maplibregl.Marker(
+            {
+                element: await make_marker(
+                    `/loc?sm=map&sl=${v.position.lat}&so=${v.position.lon}&sz=:Z;&id=${v.uid}`,
+                    v.rating
+                )
+            }
+        )
             .setLngLat({
                 "lng": v.position.lon,
                 "lat": v.position.lat
             })
-            .setPopup(new maplibregl.Popup({offset: 25}).setText(v.name))
             .addTo(map)
         active_locs[v.uid] = marker;
     }
@@ -115,3 +136,38 @@ map.on("moveend", async () => {
         }
     }
 })
+
+// additional controls
+
+document.getElementById("ctl-zoom-in").addEventListener("click", () => {
+    map.zoomIn();
+})
+document.getElementById("ctl-zoom-out").addEventListener("click", () => {
+    map.zoomOut();
+})
+
+// resume session
+
+let loc_search = new URLSearchParams(window.location.search);
+
+let parse_safe = function(s, def) {
+    let res = parseFloat(s);
+    if (Number.isNaN(res)) {
+        return def;
+    }
+    return res;
+}
+
+if (loc_search.get("lat") != null && loc_search.get("lon") != null) {
+    let params = {
+        "center": [
+            parse_safe(loc_search.get("lon"), 0),
+            parse_safe(loc_search.get("lat"), 0)
+        ]
+    }
+    if (loc_search.get("zoom") != null) {
+        params["zoom"] = parse_safe(loc_search.get("zoom"), 10);
+    }
+
+    map.jumpTo(params);
+}

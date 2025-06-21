@@ -15,7 +15,7 @@ Return the locations within one chunk, not including reviews.
 `float latitude` - The latitude that lies in the chunk.  
 `float longitude` - The longitude.  
 
-Returns a list of `MapLocation` objects as JSON, excluding reviews:  
+Returns a list of `MapLocation` objects as JSON, excluding reviews (but including an overall rating):  
 ```json
 [
     ...
@@ -26,7 +26,8 @@ Returns a list of `MapLocation` objects as JSON, excluding reviews:
         "position": {
             "lat": 0.0,
             "lon": 0.0
-        }
+        },
+        "rating": 0.0
     },
     ...
 ]
@@ -70,16 +71,17 @@ Returns a `MapLocation` as JSON:
             },
             "ratings": {
                 [string]: 0 | 1 | 2
-            }
+            },
+            "message": "message content"
         },
         ...
     ],
     "ratings": {
-        [string]: 0
+        [string]: 0.0
     }
 }
 ```
-Note, the `ratings` dictionary here contains integers from 0 through 4. These represent 1 through 5 stars.
+Note, the `ratings` dictionary here contains floats from 0 through 4. These represent 1 through 5 stars.
 
 ### Misc
 

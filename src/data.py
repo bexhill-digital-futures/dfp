@@ -37,10 +37,11 @@ async def generate_uid(seed:int|None=None) -> str:
 # saved/db types - chicken joe
 
 class MapReview(db.SupportsDatabase):
-    def __init__(self, sender_name:str, sender_pfp_key:str, ratings:typing.Dict[str,int]):
+    def __init__(self, sender_name:str, sender_pfp_key:str, ratings:typing.Dict[str,int], message:str):
         self.sender_name = sender_name
         self.sender_pfp_key = sender_pfp_key
         self.ratings = ratings
+        self.message = message
     
     async def serialize(self, f):
         await write_str(self.sender_name, f)
@@ -49,6 +50,7 @@ class MapReview(db.SupportsDatabase):
         for key in self.ratings:
             await write_str(key, f)
             f.write(self.ratings[key].to_bytes(1, "little", signed=False))
+        await write_str(self.message, f)
     
     @classmethod
     async def deserialize(self, f):
@@ -59,7 +61,8 @@ class MapReview(db.SupportsDatabase):
             key = await read_str(f)
             value = int.from_bytes(f.read(1), "little", signed=False)
             ratings[key] = value
-        return self(name, pfp_key, ratings)
+        message = await read_str(f)
+        return self(name, pfp_key, ratings, message)
 
     async def to_dict(self) -> dict:
         return {
@@ -67,7 +70,8 @@ class MapReview(db.SupportsDatabase):
                 "name": self.sender_name,
                 "pfp": self.sender_pfp_key
             },
-            "ratings": self.ratings
+            "ratings": self.ratings,
+            "message": self.message
         }
 
 class MapLocation(db.SupportsDatabase):
@@ -113,10 +117,12 @@ class MapLocation(db.SupportsDatabase):
         if dump_reviews is True:
             res["reviews"] = [await i.to_dict() for i in self.reviews]
             res["ratings"] = await self.get_ratings()
+        else:
+            res["rating"] = await self.get_overall_rating()
         return res
 
     async def get_ratings(self) -> typing.Dict[str,int]: # 0 through 4 for no. stars - 1
-        totals = {}
+        totals = {"_overall": [0,0]}
         for i in RATING_KEYS:
             totals[i] = [0,0]
         for i in self.reviews:
@@ -125,12 +131,26 @@ class MapLocation(db.SupportsDatabase):
                     if i.ratings[key] != 1:
                         totals[key][0] += i.ratings[key] * 2
                         totals[key][1] += 1
+                        totals["_overall"][0] += i.ratings[key] * 2
+                        totals["_overall"][1] += 1
         
         results = {}
         for i in totals:
-            results[i] = int(totals[i][0] / max(1, totals[i][1]))
+            results[i] = totals[i][0] / max(1, totals[i][1])
 
         return results
+    
+    async def get_overall_rating(self) -> int: # 0 through 4 for no. stars - 1
+        total = 0
+        divider = 0
+        for i in self.reviews:
+            for key in RATING_KEYS:
+                if key in i.ratings:
+                    if i.ratings[key] != 1:
+                        total += i.ratings[key] * 2
+                        divider += 1
+        
+        return total / max(1, divider)
 
 class MapChunk(db.SupportsDatabase):
     def __init__(self, locations:typing.Dict[str,MapLocation]):

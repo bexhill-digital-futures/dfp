@@ -38,13 +38,28 @@ async def generate_garbage():
     for i in range(100):
         o = (random.random() * .02) + .292608
         l = (random.random() * .02) + 50.770389
+
+        reviews = []
+        for _ in range(6):
+            reviews.append(data.MapReview(
+                str(random.randint(0, 10000)),
+                "null",
+                {
+                    "steps": random.randint(0, 2),
+                    "floor": random.randint(0, 2),
+                    "elevator": random.randint(0, 2),
+                    "ramp": random.randint(0, 2),
+                },
+                str(random.randint(0, 4294967295))
+            ))
+
         await data.set_location(data.MapLocation(
             await data.generate_uid(),
             f"a very nice location at {o}, {l}",
             f"read the title, disable garbage generation",
             l,
             o,
-            []
+            reviews
         ), False)
     await util.alog("info", f"Committing generation")
     data.db.DATABASE.commit()
@@ -60,9 +75,6 @@ async def page_home():
 @app.route("/loc", methods=["GET"])
 async def page_location():
     res = Response(await render_template("location.html"), 200, mimetype="text/html")
-    res.set_cookie("dfp-return-mode", request.args.get("sm", "map"))
-    res.set_cookie("dfp-return-lat", str(request.args.get("sl", 90.0, float)))
-    res.set_cookie("dfp-return-lon", str(request.args.get("so", 90.0, float)))
     return res
 
 @app.route("/src/<path:target>", methods=["GET"])
