@@ -2,9 +2,11 @@
 
 import os
 import data
+import time
 import util
 import random
 import asyncio
+import requests
 from hypercorn.asyncio import serve
 from hypercorn.config import Config
 from quart import Quart, request, Response, render_template, send_file
@@ -42,15 +44,15 @@ async def generate_garbage():
         reviews = []
         for _ in range(6):
             reviews.append(data.MapReview(
-                str(random.randint(0, 10000)),
-                "null",
+                await util.generate_cool_name(),
+                str(random.randint(0, 1000)),
                 {
                     "steps": random.randint(0, 2),
                     "floor": random.randint(0, 2),
                     "elevator": random.randint(0, 2),
                     "ramp": random.randint(0, 2),
                 },
-                str(random.randint(0, 4294967295))
+                await util.generate_cool_name()
             ))
 
         await data.set_location(data.MapLocation(
@@ -132,6 +134,63 @@ async def map_getloc(lat:float, lon:float, uid:str):
         if candidates[i].uid == uid:
             return await candidates[i].to_dict()
     return "Not Found", 404
+
+# review controls
+
+@app.route("/review", methods=["POST"])
+async def map_review():
+    lon = request.args.get("lon", 0, float)
+    lat = request.args.get("lat", 0, float)
+    uid = request.args.get("uid")
+    content = await request.get_json(True)
+    
+    candidates = await data.get_locations_in_chunk(lon, lat)
+    loc: data.MapLocation = None
+    for i in candidates:
+        if candidates[i].uid == uid:
+            loc = candidates[i]
+    
+    if loc is None:
+        return "Not Found", 404
+    
+    ratings = content["ratings"]
+    for key in data.RATING_KEYS:
+        if key in ratings:
+            if ratings[key] != 0 and ratings[key] != 1 and ratings[key] != 2:
+                return "Bad Request", 400
+        else:
+            return "Bad Request", 400
+    for key in ratings:
+        if not key in data.RATING_KEYS:
+            return "Bad Request", 400
+
+    loc.reviews.append(data.MapReview(
+        await util.generate_cool_name(),
+        str(random.randint(0, 1000)),
+        ratings,
+        content["message"]
+    ))
+    await data.set_location(loc)
+
+    return "ok"
+
+# pfp server
+
+@app.route("/pfp", methods=["GET"])
+async def pfp():
+    key = f"pfp-{request.args.get('id', 'null')}"
+    result = None
+
+    if key in data.db.DATABASE:
+        result = data.db.DATABASE[key]
+    else:
+        # when in doubt, hand off to a different service
+        temp = requests.get(f"https://cats.billbot.win/give/me/a/cat?q={time.time_ns()}")
+        result = temp.content
+        data.db.DATABASE[key] = result
+    
+    res = Response(result, 200, mimetype="image/png")
+    return res
 
 # launch
 

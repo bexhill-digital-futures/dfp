@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import yaml
+import random
 import typing
 import asyncio
 
@@ -21,6 +22,14 @@ LOG_TEMPLATES = {
     "warn":  "\033[90m@T\033[0m  \033[93m\033[1mWARN \033[0m\t @M",
     "err":   "\033[90m@T\033[0m  \033[91m\033[1mERROR\033[0m\t @M"
 }
+
+JUST_CHARS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+              "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+              "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
+              "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+              "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
+              "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7",
+              "8", "9", "_"]
 
 # some classes/types
 
@@ -41,6 +50,11 @@ def log(level:LogLevel, *args):
 
 async def alog(level:LogLevel, *args):
     await asyncio.to_thread(log, level, *args)
+
+# this
+
+async def generate_cool_name() -> str:
+    return "".join(random.sample(JUST_CHARS, 16))
 
 # config
 

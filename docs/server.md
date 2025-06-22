@@ -84,8 +84,21 @@ Returns a `MapLocation` as JSON:
 ```
 Note, the `ratings` dictionary here contains floats from 0 through 4. These represent 1 through 5 stars.
 
+#### `POST /review?lat=[float latitde]&lon=[float longitude]&uid=[string uid]`
+Add a review to the given location. All three of `lat`, `lon` and `uid` must be present.  
+The body must be a JSON-encoded dictionary in the format:
+```json
+{
+    "sender_name": "sender name",
+    "ratings": {
+        [string]: 0 | 1 | 2
+    }
+}
+```
+
 ### Misc
 
 | Endpoint | Description |
 |---------:|:------------------------------|
 | `/src/[path target]` | Return a file from inside `/src/content/static`. If the URL contains hazardous characters (e.g. `..`) it will be rejected. |
+| `/pfp?id=[string key]` | Return the profile image associated with the given key. |

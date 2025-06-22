@@ -32,6 +32,12 @@
     --positive: #21542e;
     --neutral: #543124;
     --negative: #542d2d;
+    --neutral-alt: #454545;
+
+    --positive-bg: #a3ffaa;
+    --neutral-bg: #ffcda3;
+    --negative-bg: #ffa9a9;
+    --neutral-alt-bg: #a7a7a7;
 
     --motion-factor: 1;
 }

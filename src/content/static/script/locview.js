@@ -4,6 +4,7 @@ const LOC_RATINGS = document.getElementById("loc-ratings");
 const LOC_REVIEWS = document.getElementById("loc-reviews");
 const LOC_ADDREVIEW = document.getElementById("loc-review-add");
 const LOC_ADDREVIEW_AFTER = document.getElementById("loc-review-after");
+const LOC_ADDREVIEW_RATINGS = document.getElementById("loc-review-ratings");
 
 const RATING_KEYS = {
     "steps": {
@@ -100,7 +101,7 @@ async function generate_review(from) {
     parent.className = "review";
 
     let pfp = document.createElement("img");
-    pfp.src = "/src/icon/placeholder.png"; // TODO: profile pic (probably kats)
+    pfp.src = `/pfp?id=${sender.pfp}`;
 
     let inner = document.createElement("div");
 
@@ -134,7 +135,7 @@ async function load(lon, lat, uid) {
             LOC_RATINGS.append(await generate_rating(i, v));
         }
 
-        // let's load all the reviews at once!
+        // let's load all the reviews at once! wcgr
         for (let i=0; i<loc.reviews.length; i++) {
             LOC_REVIEWS.append(await generate_review(loc.reviews[i]));
         }
@@ -170,4 +171,150 @@ document.getElementById("loc-return").addEventListener("click", () => {
 LOC_ADDREVIEW_AFTER.style.display = LOC_ADDREVIEW.value.length > 0 ? "block" : "none";
 LOC_ADDREVIEW.addEventListener("keyup", () => {
     LOC_ADDREVIEW_AFTER.style.display = LOC_ADDREVIEW.value.length > 0 ? "block" : "none";
+})
+
+// WAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+async function set_icon(elem, id) {
+    let icon = document.createElement("span");
+    icon.className = `icon full ${id}`;
+    elem.append(icon);
+}
+
+async function give_me_a_triple_toggle_please() {
+    // well u did say please
+    // i'm sure theres absolutely nothing in native html or js that could possibly help us
+
+    let parent = document.createElement("div");
+    parent.className = "triple-toggle";
+
+    let btn_negative = document.createElement("button");
+    let btn_neutral = document.createElement("button");
+    let btn_positive = document.createElement("button");
+    btn_negative.className = "negative no-bg";
+    btn_neutral.className = "neutral";
+    btn_positive.className = "positive no-bg";
+
+    set_icon(btn_negative, "negative");
+    set_icon(btn_neutral, "neutral");
+    set_icon(btn_positive, "positive");
+
+    let result = {
+        state: 1, // neutral by default
+        change_listeners: [],
+        elem: parent,
+        elem_negative: btn_negative,
+        elem_neutral: btn_neutral,
+        elem_positive: btn_positive
+    }
+
+    result.on_changed = (callback) => {
+        result.change_listeners.push(callback);
+    }
+
+    result.change_listeners.push(async () => {
+        btn_negative.className = result.state === 0 ? "negative" : "negative no-bg";
+        btn_neutral.className = result.state === 1 ? "neutral" : "neutral no-bg";
+        btn_positive.className = result.state === 2 ? "positive" : "positive no-bg";
+    })
+
+    btn_negative.addEventListener("click", () => {
+        result.state = 0;
+        result.change_listeners.forEach((v) => {
+            v();
+        });
+    })
+    btn_neutral.addEventListener("click", () => {
+        result.state = 1;
+        result.change_listeners.forEach((v) => {
+            v();
+        });
+    })
+    btn_positive.addEventListener("click", () => {
+        result.state = 2;
+        result.change_listeners.forEach((v) => {
+            v();
+        });
+    })
+
+    parent.append(btn_negative);
+    parent.append(btn_neutral);
+    parent.append(btn_positive);
+
+    return result;
+}
+
+// load rating inputs for fUGUHQ[0GH[3QGI0Q34H]]
+
+let rating_elems = {};
+
+async function load_rating_inputs(params) {
+    for (const [i,v] of Object.entries(RATING_KEYS)) {
+        let parent = document.createElement("div");
+
+        let main = document.createElement("div");
+        main.className = "rating";
+
+        let label = document.createElement("p");
+        label.innerText = v.name;
+        main.append(label);
+
+        let toggle = await give_me_a_triple_toggle_please();
+        main.append(toggle.elem);
+
+        parent.append(main);
+
+        let after = document.createElement("div");
+        after.className = "note neutral";
+        after.innerText = v.neutral;
+        parent.append(after);
+
+        toggle.on_changed(async () => {
+            switch (toggle.state) {
+                case 0:
+                    after.innerText = v.negative;
+                    after.className = "note negative";
+                    break;
+                case 1:
+                    after.innerText = v.neutral;
+                    after.className = "note neutral";
+                    break;
+                case 2:
+                    after.innerText = v.positive;
+                    after.className = "note positive";
+                    break;
+                default:
+                    after.innerText = "you broke it.";
+                    after.className = "note negative";
+                    break;
+            }
+        })
+
+        rating_elems[i] = toggle;
+        LOC_ADDREVIEW_RATINGS.append(parent);
+    }
+}
+load_rating_inputs();
+
+// FINALLY,  review adding
+
+document.getElementById("loc-review-post").addEventListener("click", async () => {
+    let ratings = {}
+    for (const [i,v] of Object.entries(rating_elems)) {
+        ratings[i] = v.state;
+    }
+    let res = await fetch(
+        `/review?lat=${loc_search.get("sl")}&lon=${loc_search.get("so")}&uid=${loc_search.get("id")}`,
+        {
+            method: "POST",
+            body: JSON.stringify({
+                "ratings": ratings,
+                "message": LOC_ADDREVIEW.value
+            })
+        }
+    )
+    if (res.status === 200) {
+        window.location.href = window.location.href;
+    }
+    // cba to do error handling
 })

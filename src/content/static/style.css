@@ -17,7 +17,6 @@
 body {
     background: var(--bg);
     color: var(--fg);
-    overflow: hidden;
     font-family: "Noto Sans", sans-serif;
 }
 
@@ -98,7 +97,7 @@ hr {
 textarea {
     background: var(--panel-bg);
     border-radius: var(--button-roundness);
-    margin: .375rem;
+    margin: 0 0 .5rem 0;
     padding: .5rem 1rem;
     box-sizing: border-box;
     box-shadow: 0 .125rem 1rem var(--panel-shadow),
@@ -150,6 +149,52 @@ textarea {
 .panel.translucent {
     background: var(--panel-translucent-bg);
     backdrop-filter: blur(1.5rem);
+}
+
+/* whatever the hell a "triple toggle" is (it's a toggle box BUT three) */
+
+.triple-toggle {
+    overflow: hidden;
+    display: grid;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background: var(--secondary);
+    border: none;
+    border-radius: var(--button-roundness);
+    box-shadow: 0 .125rem 1rem var(--button-shadow),
+        0 .0625rem .25rem var(--button-shadow),
+        inset 0 -.125rem .125rem var(--button-inner-shadow),
+        inset 0 .125rem .125rem var(--button-highlight),
+        inset 0 .0625rem .0625rem var(--button-top-highlight);
+    cursor: pointer;
+    transition: transform ease-in-out calc(.125s * var(--motion-factor));
+    justify-content: left;
+    grid-auto-flow: column;
+    gap: 0;
+}
+.triple-toggle button {
+    width: 2rem;
+    height: 2rem;
+    box-shadow: none;
+    background: none;
+    margin: 0;
+    padding: .25rem;
+    transition: background-color linear calc(.125s * var(--motion-factor)),
+                opacity linear calc(.125s * var(--motion-factor));
+}
+.triple-toggle button.positive {
+    background: var(--positive-bg);
+}
+.triple-toggle button.negative {
+    background: var(--negative-bg);
+}
+.triple-toggle button.neutral {
+    background: var(--neutral-alt-bg);
+}
+.no-bg {
+    background: none !important;
+    opacity: 75%;
 }
 
 /* just the entire homepage style */
@@ -264,6 +309,7 @@ textarea {
     height: 2rem;
     border-radius: 1rem;
     box-shadow: 0 .125rem 1rem var(--panel-shadow), 0 .0625rem .25rem var(--panel-shadow);
+    object-fit: cover;
 }
 .sender {
     font-size: 1.0625rem;
@@ -308,6 +354,22 @@ span.icon.back {
 span.icon.drop-pin {
     -webkit-mask: url(/src/icon/drop-pin.svg) no-repeat center / contain;
             mask: url(/src/icon/drop-pin.svg) no-repeat center / contain;
+}
+
+span.icon.positive {
+    background: var(--positive);
+    -webkit-mask: url(/src/icon/concur.svg) no-repeat center / contain;
+            mask: url(/src/icon/concur.svg) no-repeat center / contain;
+}
+span.icon.neutral {
+    background: var(--neutral-alt);
+    -webkit-mask: url(/src/icon/dunno.svg) no-repeat center / contain;
+            mask: url(/src/icon/dunno.svg) no-repeat center / contain;
+}
+span.icon.negative {
+    background: var(--negative);
+    -webkit-mask: url(/src/icon/reject.svg) no-repeat center / contain;
+            mask: url(/src/icon/reject.svg) no-repeat center / contain;
 }
 
 span.icon.star-empty {
