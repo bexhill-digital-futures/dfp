@@ -7,6 +7,7 @@
 |---------:|:------------------------------|
 | `/` | Homepage and map view. |
 | `/loc` | Location view page. Arguments `sm`, `sl` and `so` must be set to the mode, latitude and longitude to return to (set via session cookies,) and `id` is used to fetch the location's data. |
+| `/drop` | Add location page. Arguments `lat` and `lon` must point to the coordinates at which the location will be made and `sz` should be the map zoom. |
 
 ### API
 

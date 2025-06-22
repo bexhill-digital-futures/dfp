@@ -1,8 +1,11 @@
 // constants
 
-const MIN_MARKER_ZOOM_LEVEL = 12;
+const MIN_MARKER_ZOOM_LEVEL = 14;
 const BAD_RATING_THRESHOLD = 1.25;
 const GOOD_RATING_THRESHOLD = 2.75;
+
+const MAP_NAVBAR = document.getElementById("map-navbar");
+const MAP_DROP = document.getElementById("map-drop");
 
 // a few utilities
 
@@ -67,9 +70,10 @@ const map = new maplibregl.Map({
 // chunk streaming
 
 let active_locs = {}; // key: uid, value: marker
+let drop_mode = false; // true = dropping a pin
 
-map.on("moveend", async () => {
-    if (map.getZoom() < MIN_MARKER_ZOOM_LEVEL) {
+async function update_markers() {
+    if (map.getZoom() < MIN_MARKER_ZOOM_LEVEL || drop_mode) {
         for (const [i,v] of Object.entries(active_locs)) {
             v.remove();
         }
@@ -79,7 +83,7 @@ map.on("moveend", async () => {
 
     let bounds = map.getBounds();
     let coords = map.getCenter();
-    let locations = await get_chunk_locations(coords.lng, coords.lat); // first useful api cool WOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    let locations = await get_chunk_locations(coords.lng, coords.lat); // first useful api call WOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
     let sw = bounds.getSouthWest();
     let ne = bounds.getNorthEast();
@@ -135,7 +139,9 @@ map.on("moveend", async () => {
             active++;
         }
     }
-})
+}
+
+map.on("moveend", update_markers)
 
 // additional controls
 
@@ -171,3 +177,25 @@ if (loc_search.get("lat") != null && loc_search.get("lon") != null) {
 
     map.jumpTo(params);
 }
+
+// pin droppage
+
+document.getElementById("ctl-drop-pin").addEventListener("click", () => {
+    MAP_NAVBAR.style.display = "none";
+    MAP_DROP.style.display = "block";
+    drop_mode = true;
+    for (const [i,v] of Object.entries(active_locs)) {
+        v.remove();
+    }
+    active_locs = {};
+})
+document.getElementById("map-drop-submit").addEventListener("click", () => {
+    let center = map.getCenter();
+    window.location.href = `/drop?lat=${center.lat}&lon=${center.lng}&sz=${map.getZoom()}`;
+})
+document.getElementById("map-drop-cancel").addEventListener("click", () => {
+    drop_mode = false;
+    MAP_NAVBAR.style.display = "block";
+    MAP_DROP.style.display = "none";
+    update_markers();
+})

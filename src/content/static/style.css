@@ -47,6 +47,22 @@ button:hover {
     transform: scale(112%);
 }
 
+input {
+    background: var(--secondary);
+    border: none;
+    border-radius: var(--button-roundness);
+    box-shadow: 0 .125rem 1rem var(--button-shadow),
+        0 .0625rem .25rem var(--button-shadow),
+        inset 0 -.125rem .125rem var(--button-inner-shadow),
+        inset 0 .125rem .125rem var(--button-highlight),
+        inset 0 .0625rem .0625rem var(--button-top-highlight);
+    transition: transform ease-in-out calc(.125s * var(--motion-factor));
+    font-size: .875rem;
+    box-sizing: border-box;
+    width: 100%;
+    height: 2rem;
+}
+
 h1 {
     margin: .125rem;
     font-size: 1.5rem;
@@ -119,6 +135,22 @@ textarea {
     box-sizing: border-box;
     padding: .375rem;
 }
+.but-small {
+    font-size: .875rem;
+    margin-bottom: .5rem;
+}
+.primary {
+    background: var(--primary);
+}
+.modal-button {
+    width: 8rem;
+    height: 2rem;
+}
+
+.panel.translucent {
+    background: var(--panel-translucent-bg);
+    backdrop-filter: blur(1.5rem);
+}
 
 /* just the entire homepage style */
 
@@ -129,13 +161,36 @@ textarea {
     padding: .125rem;
     transform: translate(-100%, -100%);
 }
-
 #map {
     position: absolute;
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
+}
+#map-drop {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+#map-drop-pin {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 7rem;
+    height: 7rem;
+    transform: translate(-50%, -50%);
+}
+#map-drop-lower {
+    pointer-events: all;
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 3rem);
+    text-align: center;
+    transform: translate(-50%, 0);
 }
 
 .marker {
@@ -249,6 +304,10 @@ span.icon.zoom-out {
 span.icon.back {
     -webkit-mask: url(/src/icon/back.svg) no-repeat center / contain;
             mask: url(/src/icon/back.svg) no-repeat center / contain;
+}
+span.icon.drop-pin {
+    -webkit-mask: url(/src/icon/drop-pin.svg) no-repeat center / contain;
+            mask: url(/src/icon/drop-pin.svg) no-repeat center / contain;
 }
 
 span.icon.star-empty {

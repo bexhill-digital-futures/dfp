@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FreePath</title>
+
+        <link rel="stylesheet" href="/src/themes/base.css">
+        <link rel="stylesheet" href="/src/style.css">
+
+        <script src="/src/script/mapapi.js"></script>
+    </head>
+    <body>
+        <div class="center-align">
+            <div class="panel">
+                <div id="loc-title-outer">
+                    <button id="loc-return">
+                        <span class="icon full back"></span>
+                    </button>
+                    <h1 id="loc-title">Add Location</h1>
+                </div>
+                <hr>
+                <h4>Place Name</h4>
+                <input type="text" id="in-name" placeholder="Place Name">
+                <h4>Description</h4>
+                <textarea id="in-desc" placeholder="Add a detailed description..."></textarea>
+                <div>
+                    <button id="submit" class="primary modal-button">Submit</button>
+                    <button id="cancel" class="modal-button">Cancel</button>
+                </div>
+                <p class="note negative" id="error-text"></p>
+            </div>
+        </div>
+
+        <script src="/src/script/locadd.js"></script>
+    </body>
+</html>

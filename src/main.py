@@ -77,6 +77,10 @@ async def page_location():
     res = Response(await render_template("location.html"), 200, mimetype="text/html")
     return res
 
+@app.route("/drop", methods=["GET"])
+async def page_drop():
+    return await render_template("drop.html")
+
 @app.route("/src/<path:target>", methods=["GET"])
 async def src_path(target:str):
     full = os.path.abspath(f"{util.STATIC_BASE}{target}")

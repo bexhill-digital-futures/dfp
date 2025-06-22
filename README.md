@@ -32,7 +32,7 @@ Since the back-end is written in Python, you need Python! This project is built 
 **Install Examples**  
 **Windows:** Download the installer and run it.  
 **`apt`-based Linux (e.g. Ubuntu, Debian):** `sudo apt install python`  
-**`dnf`-based Linux (e.g. Fedora, RHEL):** `sudo dnf install python`
+**`dnf`-based Linux (e.g. Fedora, RHEL):** `sudo dnf install python`  
 **Linux Hard Mode:** *(in extracted source)* `./configure --enable-optimizations --prefix=/usr/local; make; sudo make altinstall`  
 
 #### 2.2. Install Python Packages
