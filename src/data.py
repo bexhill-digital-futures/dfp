@@ -128,11 +128,10 @@ class MapLocation(db.SupportsDatabase):
         for i in self.reviews:
             for key in RATING_KEYS:
                 if key in i.ratings:
-                    if i.ratings[key] != 1:
-                        totals[key][0] += i.ratings[key] * 2
-                        totals[key][1] += 1
-                        totals["_overall"][0] += i.ratings[key] * 2
-                        totals["_overall"][1] += 1
+                    totals[key][0] += i.ratings[key] * 2
+                    totals[key][1] += 1
+                    totals["_overall"][0] += i.ratings[key] * 2
+                    totals["_overall"][1] += 1
         
         results = {}
         for i in totals:
