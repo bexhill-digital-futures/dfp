@@ -11,25 +11,37 @@ const RATING_KEYS = {
         "name": "Stairs/Steps",
         "positive": "This location offers step-free access.",
         "neutral": "This location might offer step-free access.",
-        "negative": "This location does not offer step-free access."
+        "negative": "This location does not offer step-free access.",
+        "positive_img": "/src/icon/ramp.svg",
+        "neutral_img": "/src/icon/ferris-wheel.png",
+        "negative_img": "/src/icon/stair.svg"
     },
     "floor": {
         "name": "Floor Quality",
         "positive": "This location has a smooth and safe floor.",
         "neutral": "This location has a decent quality floor.",
-        "negative": "This location has a rough floor and may pose a trip hazard."
+        "negative": "This location has a rough floor and may pose a trip hazard.",
+        "positive_img": "/src/icon/ramp.svg",
+        "neutral_img": "/src/icon/ferris-wheel.png",
+        "negative_img": "/src/icon/stair.svg"
     },
     "elevator": {
         "name": "Elevators",
         "positive": "This location offers elevators.",
         "neutral": "This location may offer elevators if needed.",
-        "negative": "This location needs elevators but does not offer them."
+        "negative": "This location needs elevators but does not offer them.",
+        "positive_img": "/src/icon/ramp.svg",
+        "neutral_img": "/src/icon/ferris-wheel.png",
+        "negative_img": "/src/icon/stair.svg"
     },
     "ramp": {
         "name": "Ramps",
         "positive": "This location has ramps for access.",
         "neutral": "This location may have ramps if needed.",
-        "negative": "This location does not have ramps."
+        "negative": "This location does not have ramps.",
+        "positive_img": "/src/icon/ramp.svg",
+        "neutral_img": "/src/icon/ferris-wheel.png",
+        "negative_img": "/src/icon/stair.svg"
     }
 }
 const RATING_NEGATIVE_THRESHOLD = 1.25;
@@ -76,16 +88,25 @@ async function generate_rating(label, stars) {
     let after = document.createElement("div");
     after.className = "note";
 
+    let note_icon = document.createElement("img");
+    let note_inner = document.createElement("span");
+
     if (stars_before < RATING_NEGATIVE_THRESHOLD) {
         after.classList.add("negative");
-        after.innerText = RATING_KEYS[label].negative;
+        note_inner.innerText = RATING_KEYS[label].negative;
+        note_icon.src = RATING_KEYS[label].negative_img;
     } else if (stars_before > RATING_POSITIVE_THRESHOLD) {
         after.classList.add("positive");
-        after.innerText = RATING_KEYS[label].positive;
+        note_inner.innerText = RATING_KEYS[label].positive;
+        note_icon.src = RATING_KEYS[label].positive_img;
     } else {
         after.classList.add("neutral");
-        after.innerText = RATING_KEYS[label].neutral;
+        note_inner.innerText = RATING_KEYS[label].neutral;
+        note_icon.src = RATING_KEYS[label].neutral_img;
     }
+
+    after.append(note_icon);
+    after.append(note_inner);
 
     parent.append(main);
     parent.append(after);

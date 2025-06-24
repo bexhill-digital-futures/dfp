@@ -89,6 +89,13 @@ p {
     font-weight: 400;
 }
 
+a {
+    color: var(--link);
+}
+a:visited {
+    color: var(--link-visited);
+}
+
 hr {
     border: none;
     border-bottom: .0625rem solid var(--accent);
@@ -280,8 +287,13 @@ textarea {
     grid-auto-flow: column;
 }
 .note {
+    display: grid;
     padding: 0 0 .125rem 0;
     font-size: .875rem;
+    grid-auto-flow: column;
+    justify-content: left;
+    align-items: center;
+    gap: .625rem;
 }
 .note.positive {
     color: var(--positive);
@@ -294,6 +306,10 @@ textarea {
 .note.negative {
     color: var(--negative);
     font-weight: 600;
+}
+.note img { /* THE note ICON wow */
+    width: 2rem;
+    height: 2rem;
 }
 
 .review {

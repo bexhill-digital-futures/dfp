@@ -39,5 +39,8 @@
     --negative-bg: #ffa9a9;
     --neutral-alt-bg: #a7a7a7;
 
+    --link: #055481;
+    --link-visited: #551181;
+
     --motion-factor: 1;
 }
