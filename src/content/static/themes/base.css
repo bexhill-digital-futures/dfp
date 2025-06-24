@@ -16,14 +16,14 @@
     --panel-bg: #dae7ce;
     --panel-translucent-bg: #dae7ce6a;
     --panel-shadow: #000000a1;
-    --panel-inner-shadow: #00000040;
+    --panel-inner-shadow: #00000004;
     --panel-highlight: #ffffff1d;
     --panel-top-highlight: #ffffff24;
     --panel-roundness: .625rem;
     
     --button-roundness: .5rem;
     --button-shadow: #000000a1;
-    --button-inner-shadow: #0000001a;
+    --button-inner-shadow: #0000000a;
     --button-highlight: #ffffff1d;
     --button-top-highlight: #ffffff24;
 
