@@ -34,8 +34,8 @@ button {
 }
 
 button.navbar-button {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: var(--button-roundness);
     color: var(--fg);
     border: none;
@@ -247,8 +247,8 @@ textarea {
 
 .marker {
     pointer-events: none;
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
 }
 .marker button {
     pointer-events: all;
