@@ -196,7 +196,7 @@ async def pfp():
 
 if __name__ == "__main__":
     cfg = Config()
-    cfg.bind = [f"127.0.0.1:{util.cfg.get('server', {}).get('port', 80)}"]
+    cfg.bind = [f"0.0.0.0:{util.cfg.get('server', {}).get('port', 80)}"]
 
     if util.cfg.get("make_garbage", False) is True:
         cfg.startup_timeout = 86400

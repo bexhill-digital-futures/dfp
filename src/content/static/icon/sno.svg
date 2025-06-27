@@ -1,58 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Adobe Illustrator 29.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 595.28 841.89" style="enable-background:new 0 0 595.28 841.89;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
-	.st1{fill:none;stroke:#000000;stroke-miterlimit:10;}
-</style>
-<polygon class="st0" points="345,446 224.2,443.23 166.2,337.23 229,234 349.8,236.77 407.8,342.77 "/>
-<polygon class="st0" points="330.54,419.57 239.86,417.49 196.33,337.92 243.46,260.43 334.14,262.51 377.67,342.08 "/>
-<polygon class="st1" points="261.94,383.41 236.88,340 261.94,296.59 312.06,296.59 337.12,340 312.06,383.41 "/>
-<path class="st0" d="M349.8,236.28c-40.27-0.92-80.53-1.85-120.8-2.77c20.33-48.5,40.67-97.01,61-145.51
-	C309.93,137.43,329.87,186.86,349.8,236.28z"/>
-<path class="st0" d="M229,235.72c-20.35,34.76-40.7,69.52-61.04,104.28c-32.54-41.32-65.09-82.63-97.63-123.95
-	c22.91,2.84,45.82,5.68,68.73,8.52C169.04,228.29,199.02,232.01,229,235.72z"/>
-<path class="st0" d="M347.62,233.53c20.24,36.67,40.48,73.34,60.72,110.01c40.41-37.93,80.82-75.86,121.24-113.79
-	C468.92,231.01,408.27,232.27,347.62,233.53z"/>
-<path class="st0" d="M223.18,445.03c40.94,0.65,81.89,1.3,122.83,1.95c-21.02,49.08-42.04,98.16-63.06,147.24
-	C263.03,544.48,243.1,494.75,223.18,445.03z"/>
-<path class="st0" d="M225.4,444.33c-20.46-35.81-40.93-71.62-61.39-107.43c-40.5,36.84-81.01,73.69-121.51,110.53
-	C103.47,446.4,164.44,445.37,225.4,444.33z"/>
-<path class="st0" d="M344.91,447.94c20.97-35.66,41.95-71.31,62.92-106.97C443.89,377.98,479.94,414.99,516,452
-	C458.97,450.65,401.94,449.29,344.91,447.94z"/>
-<path class="st0" d="M139,198"/>
-<polygon class="st0" points="133.95,178 139.05,224.57 158.99,227.04 "/>
-<polygon class="st0" points="115.98,274.01 65,292 133.77,296.59 113.17,270.44 "/>
-<polygon class="st0" points="158.99,445.46 133.77,501 133.77,445.89 "/>
-<polygon class="st0" points="122.66,374.53 58,374.53 98.52,396.49 "/>
-<polygon class="st0" points="236.88,479.23 216,532 249.18,509.93 "/>
-<polygon class="st0" points="332.2,479.23 355,541 318.97,510.11 "/>
-<polygon class="st0" points="398.99,449.22 457,488 430.46,449.22 "/>
-<polygon class="st0" points="449,383.41 516,385.51 473.13,408 "/>
-<polygon class="st0" points="449,310 521,319 464.65,290.69 444.03,310.04 "/>
-<polygon class="st0" points="406.99,232.29 465,198 449,232.29 "/>
-<polygon class="st0" points="318.97,159.83 347.62,124 330.14,187.54 "/>
-<polygon class="st0" points="245,198 216,140 254,178 "/>
-<polygon class="st0" points="146.47,202.52 155,187.54 150.74,210.87 "/>
-<polygon class="st0" points="80.18,286.64 70.33,270.44 90.33,283.06 "/>
-<polygon class="st0" points="76.98,416.08 32,402 65,426.98 "/>
-<polygon class="st0" points="149.66,466 183,468.61 146.38,473.23 "/>
-<polygon class="st0" points="232.59,490.07 192,505.61 228.27,501 "/>
-<polygon class="st0" points="265.07,549.57 254,565 271.25,565 "/>
-<polygon class="st0" points="340.23,501 361,490.07 355.86,501 347.11,519.62 "/>
-<polygon class="st0" points="370,510.11 350.62,512.15 355.86,501 "/>
-<polygon class="st0" points="383,449.22 383,468.61 398.99,449.22 "/>
-<polygon class="st0" points="413.5,458.92 413.5,469.62 424.09,466 "/>
-<polygon class="st0" points="472,384.13 482.5,374.53 489,383.41 "/>
-<polygon class="st0" points="489,399.67 521,399.67 473.13,408 "/>
-<polygon class="st0" points="460.69,311.46 472,340.97 480.5,313.94 "/>
-<polygon class="st0" points="489,267.83 511,270.44 504.34,253.43 "/>
-<polygon class="st0" points="430.46,218.42 430.46,198 444.03,208.21 "/>
-<polygon class="st0" points="455.47,218.42 473.13,218.42 457,232.29 449,232.29 "/>
-<polygon class="st0" points="336.98,162.66 361,178 332.77,178 "/>
-<polygon class="st0" points="329.14,147.11 329.14,119 337.12,133.06 "/>
-<polygon class="st0" points="262.62,147.11 244,124 271.25,135.56 "/>
-<path class="st0" d="M225.4,162.66"/>
-<polygon class="st0" points="212.3,170.33 225.4,162.66 235,178 "/>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M77.2632 85L52.7632 84.4382L41 62.9382L53.7368 42L78.2368 42.5618L90 64.0618L77.2632 85Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M73.6437 79L55.6417 78.5948L47 63.0948L56.3563 48L74.3583 48.4052L83 63.9052L73.6437 79Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M60 72L55 63.5L60 55H70L75 63.5L70 72H60Z" stroke="black" stroke-miterlimit="10"/>
+<path d="M78 42C69.9993 41.8201 62.0007 41.6382 54 41.4583C58.0391 31.9728 62.0801 22.4854 66.1192 13C70.0788 22.6673 74.0404 32.3346 78 42Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M54 42.126C49.7676 49.4173 45.5353 56.7087 41.305 64C34.5373 55.3326 27.7676 46.6674 21 38C25.7648 38.5957 30.5296 39.1914 35.2944 39.7872C41.5296 40.5675 47.7648 41.3478 54 42.126Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M77 41.7973C81.1156 49.5315 85.2313 57.2658 89.3469 65C97.5639 57 105.781 49 114 41C101.665 41.2658 89.3327 41.5315 77 41.7973Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M53 85C60.9993 85.1307 69.0007 85.2614 77 85.3921C72.8929 95.2614 68.7857 105.131 64.6786 115C60.7864 104.998 56.8922 94.998 53 85Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M53 85.383C48.861 78.2553 44.72 71.1277 40.581 64C32.388 71.3327 24.193 78.6673 16 86C28.334 85.795 40.668 85.59 53 85.383Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M77 85.1955C81.1673 78.1297 85.3365 71.0658 89.5038 64C96.6699 71.3333 103.834 78.6667 111 86C99.6667 85.7325 88.3333 85.463 77 85.1955Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M34 31L35.0184 40.4963L39 41L34 31Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M30.3784 50.6826L20 54.1224L34 55L29.8063 50L30.3784 50.6826Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M39 85L34 96V85.0852L39 85Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M32 71H19L27.1466 75L32 71Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M54.7758 92L51 102L57 97.8177L54.7758 92Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M74.5704 92L79 104L72 97.999L74.5704 92Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M88 86L99 93L93.9674 86H88Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M98 72L111 72.427L102.682 77L98 72Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M97.9686 57.4105L112 59L101.018 54L97 57.4175L97.9686 57.4105Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M90 42L101 35L97.966 42H90Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M72 27.3307L77 20L73.9494 33L72 27.3307Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M56.3421 35L51 24L58 31.2069L56.3421 35Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M37 35.5684L38 33L37.5006 37L37 35.5684Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M23.4625 53L21 50L26 52.337L23.4625 53Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M23 78.8183L14 76L20.6029 81L23 78.8183Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M37.7165 89L45 89.722L37 91L37.7165 89Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M54 94L47 97L53.255 96.11L54 94Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M60.567 106L58 109H62L60.567 106Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M76 95.8494L80 94L79.0101 95.8494L77.325 99L76 95.8494Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M82 97.6341L78 98L79.0815 96L82 97.6341Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M85 86V90L88 86H85Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M91 88V90L93 89.3234L91 88Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M102 73L104.471 71L106 72.85L102 73Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M105.315 76H112L102 77L105.315 76Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M100 58L102.855 64L105 58.5042L100 58Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M106 49.5397L110 50L108.789 47L106 49.5397Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M94 39V35L97 37L94 39Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M99.0725 39H102L99.3261 42H98L99.0725 39Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M74.8948 28L80 31H74L74.8948 28Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M74 25V19L75 22.0011L74 25Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M60.0998 25L56 20L62 22.5011L60.0998 25Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M50 29.5L52.8855 28L55 31L50 29.5Z" fill="white" stroke="black" stroke-miterlimit="10"/>
 </svg>

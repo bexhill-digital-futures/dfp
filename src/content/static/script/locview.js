@@ -12,27 +12,27 @@ const RATING_KEYS = {
         "positive": "This location offers step-free access.",
         "neutral": "This location might offer step-free access.",
         "negative": "This location does not offer step-free access.",
-        "positive_img": "/src/icon/ramp.svg",
+        "positive_img": "/src/icon/stairless.svg",
         "neutral_img": "/src/icon/ferris-wheel.png",
-        "negative_img": "/src/icon/stair.svg"
+        "negative_img": "/src/icon/staris.svg"
     },
     "floor": {
         "name": "Floor Quality",
         "positive": "This location has a smooth and safe floor.",
         "neutral": "This location has a decent quality floor.",
         "negative": "This location has a rough floor and may pose a trip hazard.",
-        "positive_img": "/src/icon/ramp.svg",
-        "neutral_img": "/src/icon/ferris-wheel.png",
-        "negative_img": "/src/icon/stair.svg"
+        "positive_img": "/src/icon/placeholder.png",
+        "neutral_img": "/src/icon/placeholder.png",
+        "negative_img": "/src/icon/big-ass-hole.svg"
     },
     "elevator": {
         "name": "Elevators",
         "positive": "This location offers elevators.",
         "neutral": "This location may offer elevators if needed.",
         "negative": "This location needs elevators but does not offer them.",
-        "positive_img": "/src/icon/ramp.svg",
-        "neutral_img": "/src/icon/ferris-wheel.png",
-        "negative_img": "/src/icon/stair.svg"
+        "positive_img": "/src/icon/elevation-device.svg",
+        "neutral_img": "/src/icon/placeholder.png",
+        "negative_img": "/src/icon/nej.svg"
     },
     "ramp": {
         "name": "Ramps",
@@ -40,8 +40,8 @@ const RATING_KEYS = {
         "neutral": "This location may have ramps if needed.",
         "negative": "This location does not have ramps.",
         "positive_img": "/src/icon/ramp.svg",
-        "neutral_img": "/src/icon/ferris-wheel.png",
-        "negative_img": "/src/icon/stair.svg"
+        "neutral_img": "/src/icon/placeholder.png",
+        "negative_img": "/src/icon/placeholder.png"
     }
 }
 const RATING_NEGATIVE_THRESHOLD = 1.25;
